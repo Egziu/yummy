@@ -9,7 +9,7 @@ COPY --from=src /src/frontend/package.json /src/frontend/package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY --from=src /src/frontend/ ./
 COPY --from=src /src/spec/ /spec/
-RUN npx vite build
+RUN npx vite build && node scripts/compress.mjs
 
 FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
